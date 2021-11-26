@@ -12,6 +12,7 @@ using Nebula.Data;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
+using Blazored.LocalStorage;
 
 namespace NebulaMobile
 {
@@ -37,8 +38,9 @@ namespace NebulaMobile
 			builder.Services.AddBlazorWebView();
 
 			// my
-			builder.Services.AddTransient<HttpClient>();
-
+			builder.Services.AddHttpClient();
+			builder.Services.AddBlazoredLocalStorage();
+			builder.Services.AddTransient<SampleAPI>();
 			var networkid = builder.Configuration["network"];
 			// use dedicate host to avoid "random" result from api.lyra.live which is dns round-robbined. <-- not fail safe
 			//services.AddTransient<LyraRestClient>(a => LyraRestClient.Create(networkid, Environment.OSVersion.ToString(), "Nebula", "1.0"/*, $"http://nebula.{networkid}.lyra.live:{Neo.Settings.Default.P2P.WebAPI}/api/Node/"*/));
@@ -52,7 +54,7 @@ namespace NebulaMobile
 			});
 
 			var currentAssembly = typeof(MauiProgram).Assembly;
-			var libAssembly = typeof(Nebula.Data.WalletView).Assembly;
+			var libAssembly = typeof(UserLibrary.Data.WalletView).Assembly;
 			builder.Services.AddFluxor(options => options.ScanAssemblies(libAssembly, currentAssembly));
 
 			builder.Services.AddAntDesign();
