@@ -54,6 +54,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Components\TopBar.razor.css" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Include="..\..\LyraNebula\UserLibrary\Data\reCAPTCHAVerificationOptions.cs" Link="Data\reCAPTCHAVerificationOptions.cs" />
 	  <Compile Include="..\..\LyraNebula\UserLibrary\Data\reCAPTCHAVerificationResponse.cs" Link="Data\reCAPTCHAVerificationResponse.cs" />
 	  <Compile Include="..\..\LyraNebula\UserLibrary\Data\WalletView.cs" Link="Data\WalletView.cs" />
@@ -113,6 +117,10 @@
 	
 	<ItemGroup>
 	  <_MauiCompileToAdd Remove="Platforms\Android\HTTPClientHandlerCreationService_Android.cs" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Content Include="Components\TopBar.razor.css" />
 	</ItemGroup>
 
 </Project>
