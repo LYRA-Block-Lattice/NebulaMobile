@@ -1,7 +1,16 @@
 ﻿@namespace UserLibrary.Pages
+@page "/webwallet"
+@page "/wallet"
 
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
+@using AntDesign
+@using Fluxor
+@using Lyra.Core.API
+@using Lyra.Data.API
+@using Lyra.Data.Crypto
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.JSInterop
 @using Nebula.Store.WebWalletUseCase
 @using Nebula.Data
 @using Microsoft.Extensions.Configuration
@@ -61,18 +70,10 @@
             <SpaceItem>&nbsp;</SpaceItem>
 
             <SpaceItem>
-                <button class="btn btn-primary" @onclick="Transactions">
-                    Transactions
-                </button>
-            </SpaceItem>
-
-            <SpaceItem>
                 <button class="btn btn-primary" @onclick="Settings">
                     Settings
                 </button>
             </SpaceItem>
-
-            <SpaceItem>&nbsp;</SpaceItem>
 
             <SpaceItem>
                 <button class="btn btn-primary" @onclick="CloseWallet">
@@ -82,7 +83,7 @@
 
         </Space>
         &nbsp;&nbsp;&nbsp;
-        @if (Configuration["network"] != "mainnet" && walletState.Value.wallet.BaseBalance == 0m && walletState.Value.freeTokenTimes < 3 && !walletState.Value.freeTokenSent)
+        @if (Configuration["network"] != "mainnet" && walletState.Value.wallet.BaseBalance == 0m && !walletState.Value.freeTokenSent) //&& walletState.Value.freeTokenTimes < 3
         {
             <span>
                 <button style="float: right;" class="btn btn-success" @onclick="FreeToken">
@@ -93,24 +94,40 @@
     </div>
     <hr />
     <div>
-        <Space Wrap>
+        <Space Size=@(("8", "16")) Wrap>
             @if (walletState.Value.wallet.GetLatestBlock() != null)
             {
                 @foreach (var kvp in walletState.Value.wallet.GetLatestBlock().Balances)
                 {
                     <SpaceItem>
-                        <Card Title="@kvp.Key" Style="width:300px;">
+                        <Card Title="@kvp.Key" Style="height:180px; width:280px;">
                             <Extra>
                                 <Button Type="@ButtonType.Text" OnClick="@(async ()=>{ await SendX(kvp.Key); })">
                                     Send
                                 </Button>
                             </Extra>
                             <Body>
-                                <p style="font-size: xx-large;"><b>@($"{kvp.Value.ToBalanceDecimal():N2}")</b></p>
+                                <p style="font-size: xx-large; text-align: right;4"><b>@($"{kvp.Value.ToBalanceDecimal():N4}")</b></p>
                             </Body>
                         </Card>
                     </SpaceItem>
                 }
+
+                    <SpaceItem Style="display: none">
+                        <Card Title="Your New Token" Style="height:180px; width:280px;">
+                            <Extra>
+                                <Button Type="@ButtonType.Text" >
+                                    ...
+                                </Button>
+                            </Extra>
+                            <Body>
+                                <p style="font-size: xx-large; text-align:center;"><b><Button Type="@ButtonType.Primary" 
+                                    Shape="@ButtonShape.Circle" Icon="@IconType.Outline.Plus" 
+                                    Size="@ButtonSize.Large"/>
+                                </b></p>
+                            </Body>
+                        </Card>
+                    </SpaceItem>
             }
 
 
@@ -144,140 +161,8 @@ else if (walletState.Value.IsOpening && walletState.Value.stage == UIStage.Staki
     <hr />
     <h3>Staking</h3>
     <hr />
-    <p>
-        <div><h4>All Stakings</h4></div>
-        <div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Staking Amount</th>
-                        <th>Compound Mode</th>
-                        <th>Total Reward</th>
-                        <th>Start Time</th>
-                        <th>Staking Days</th>
-                        <th>Staking to Account</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var stk in walletState.Value.brokerAccounts.Where(a => a is StakingGenesis)
-                   .Cast<StakingGenesis>())
-                    {
-                        <tr>
-                            <td>@stk.Name</td>
-                            @if (walletState.Value.stkBalances != null)
-                            {
-                                <td>@walletState.Value.stkBalances[stk.AccountID]</td>
-                            }
-                            else
-                            {
-                                <td>0</td>
-                            }
-                            <td>@stk.CompoundMode</td>
-                            <td>@walletState.Value.stkRewards[stk.AccountID]</td>
-                            <td>@stk.TimeStamp</td>
-                            <td>@stk.Days</td>
-                            <td>@stk.Voting</td>
-                            <td>
-                                <a href="" @onclick="@(e => AddStkAsync(e, stk.AccountID))" @onclick:preventDefault><u>Add Staking</u></a>
-                                &nbsp;
-                                <Popconfirm Title="Unstaking within the promised staking period will pay 0.8% panalise fee. "
-                                    OnConfirm="@(e => RmStk(e, stk.AccountID))"
-                                    OkText="Yes, I know."
-                                    CancelText="No, cancel unstaking">
-                                    <a style="color:blue"><u>Unstaking</u></a>
-                                </Popconfirm>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </p>
-    <p>
-        <div><h4>All Profiting</h4></div>
-        <div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Share Ratio</th>
-                        <th>Seats</th>
-                        <th>Profiting Account ID</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var pft in walletState.Value.brokerAccounts.Where(a => a is ProfitingGenesis)
-                   .Cast<ProfitingGenesis>())
-                    {
-                        <tr>
-                            <td>@pft.Name</td>
-                            <td>@pft.PType</td>
-                            <td>@pft.ShareRito</td>
-                            <td>@pft.Seats</td>
-                            <td>
-                                @pft.AccountID
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </p>
-
-    <div>
-        <h3>Create new staking account</h3>
-        <p>
-            Name:
-            <input size="60" type="text" @bind="@stkName" />
-        </p>
-        <p>
-            Staking For Address:
-            <input size="100" type="text" @bind="@stkVoting" />
-        </p>
-        <p>
-            Days of staking:
-            <input size="10" type="text" @bind="@stkDays" />
-        </p>
-        <p>
-            Compound staking mode:
-            <input size="10" type="checkbox" @bind="@stkCompound" />
-        </p>
-        <div>
-            <button class="btn btn-primary" @onclick="StakingCreate">Create Staking</button>
-        </div>
-    </div>
-    <hr />
-    <div>
-        <h3>Create new profiting account</h3>
-        <p>
-            Name:
-            <input size="60" type="text" @bind="@pftName" />
-        </p>
-        <p>
-            Type:
-            <select style="height: 40px; width: 380px" @bind="@pftType">
-                <option value="Node">Node</option>
-                <option disabled value="Oracle">Oracle</option>
-                <option disabled value="Merchant">Merchant</option>
-                <option value="Yield">Yield</option>
-            </select>
-        </p>
-        <p>
-            Ratio to share to staking (0% - 100%):
-            <input size="10" type="text" @bind="@pftShare" />
-        </p>
-        <p>
-            Number of staking (0 - 100):
-            <input size="10" type="text" @bind="@pftSeats" />
-        </p>
-        <div>
-            <button class="btn btn-primary" @onclick="ProfitingCreate">Create Profiting Account</button>
-        </div>
-    </div>
-    <hr />
+    <Staking />
+        <hr />
     <div>
         <button class="btn btn-primary" @onclick="CancelSave">Return</button>
     </div>
@@ -294,13 +179,15 @@ else if (walletState.Value.IsOpening && walletState.Value.stage == UIStage.Setti
 
         <p>
             Vote For Address:
-            <input size="100" type="text" @bind="@voteAddr" />
+            <Input TValue="string" Placeholder="Address" @bind-Value="@voteAddr" /> 
         </p>
         <div>
             <p style="color: red">Please save private key properly if you want to open this wallet again.</p>
         </div>
         <hr />
-
+                        <button class="btn btn-primary" @onclick="Transactions">
+                    Transactions
+                </button>
         <button class="btn btn-primary" @onclick="SaveSettings">Save</button>
         <button class="btn btn-primary" @onclick="CancelSave">Cancel</button>
     </div>
@@ -312,15 +199,15 @@ else if (walletState.Value.IsOpening && walletState.Value.stage == UIStage.Send)
     <div>
         <p>
             Destination Wallet Address:<br />
-            <input size="120" type="text" @bind="@dstAddr" />
+            <Input TValue="string" Placeholder="Address" @bind-Value="@dstAddr" /> 
         </p>
         <p>
             Token Name:<br />
-            <input size="20" type="text" @bind="@tokenName" />
+            <Input TValue="string" Placeholder="Name" @bind-Value="@tokenName" /> 
         </p>
         <p>
             Amount:<br />
-            <input size="20" type="text" @bind="@amount" />
+            <Input TValue="decimal" Placeholder="Amount" @bind-Value="@amount" /> 
         </p>
         <hr />
         <button class="btn btn-primary" @onclick="SendToken">Send Token</button>
@@ -379,7 +266,9 @@ else
     <hr />
     <div>
         <p>Private Key:</p>
-        <p><input size="100" type="text" @bind="prvKey" /></p>
+        <p>
+            <Input TValue="string" Placeholder="Private Key" @bind-Value="@prvKey" />    
+        </p>
         <p>
             <button class="btn btn-primary" @onclick="RestoreWallet">
                 Restore Wallet
@@ -388,3 +277,240 @@ else
     </div>
 }
 
+@code{
+    		[Inject]
+		private IState<WebWalletState> walletState { get; set; }
+
+		[Inject]
+		private IDispatcher Dispatcher { get; set; }
+
+		[Inject]
+		private IJSRuntime JS { get; set; }
+
+        		public string prvKey { get; set; }
+		public bool selfVote { get; set; }
+
+		// for send
+		public string dstAddr { get; set; }
+		public string tokenName { get; set; }
+		public decimal amount { get; set; }
+
+		// for settings
+		public string voteAddr { get; set; }
+
+		public string altDisplay { get; set; }
+
+		public WebWallet()
+        {
+			tokenName = "LYR";
+			altDisplay = "************";			
+		}
+
+        private void ToggleKey(MouseEventArgs e)
+		{
+			if (altDisplay == "************")
+				altDisplay = walletState?.Value?.wallet?.PrivateKey;
+			else
+				altDisplay = "************";
+		}
+
+		private void CloseWallet(MouseEventArgs e)
+		{
+			Dispatcher.Dispatch(new WebWalletCloseAction());
+		}
+
+		private void CreateWallet(MouseEventArgs e)
+        {
+			altDisplay = "************";
+
+			Dispatcher.Dispatch(new WebWalletCreateAction());
+		}
+
+		private async void RestoreWallet(MouseEventArgs e)
+		{
+			altDisplay = "************";
+
+			if (string.IsNullOrWhiteSpace(prvKey))
+            {
+				await JS.InvokeAsync<object>("alert", "Private Key can't be empty.");
+				return;
+			}
+            else
+            {
+				try
+                {
+					Base58Encoding.DecodePrivateKey(prvKey);
+					Dispatcher.Dispatch(new WebWalletRestoreAction { privateKey = prvKey, selfVote = this.selfVote });
+				}
+				catch (Exception)
+                {
+					await JS.InvokeAsync<object>("alert", "Private Key specified is not valid.");
+					return;
+				}
+            }
+		}
+
+		private void Refresh(MouseEventArgs e)
+        {
+			Dispatcher.Dispatch(new WebWalletRefreshBalanceAction { wallet = walletState.Value.wallet });
+        }
+
+		private void Staking(MouseEventArgs e)
+		{
+			Dispatcher.Dispatch(new WebWalletStakingAction { wallet = walletState.Value.wallet });
+		}
+
+		private void ClearError()
+		{
+			Dispatcher.Dispatch(new WalletErrorResetAction());
+		}
+
+
+
+
+
+
+
+		private void OnSuccess()
+		{
+			Dispatcher.Dispatch(new WebWalletReCAPTCHAValidAction { ValidReCAPTCHA = true });
+		}
+
+		private void OnExpired()
+		{
+			Dispatcher.Dispatch(new WebWalletReCAPTCHAValidAction { ValidReCAPTCHA = false });
+		}
+
+		private async Task OnClickPost()
+		{
+			Dispatcher.Dispatch(new WebWalletSendMeFreeTokenAction
+			{
+				wallet = walletState.Value.wallet,
+				faucetPvk = Configuration["faucetPvk"]
+			});
+			return;
+
+			/*        if (walletState.Value.ValidReCAPTCHA)
+					{
+						var response = await reCAPTCHAComponent.GetResponseAsync();
+						try
+						{
+							Dispatcher.Dispatch(new WebWalletReCAPTCHAServerAction { ServerVerificatiing = true });
+
+							var result = await SampleAPI.Post(response);
+							if (result.Success)
+							{
+								Dispatcher.Dispatch(new WebWalletSendMeFreeTokenAction
+									{
+										wallet = walletState.Value.wallet,
+										faucetPvk = Configuration["faucetPvk"]
+									});
+								//Navigation.NavigateTo("/valid");
+							}
+							else
+							{
+								await JS.InvokeAsync<object>("alert", string.Join(", ", result.ErrorCodes));
+
+								Dispatcher.Dispatch(new WebWalletReCAPTCHAServerAction { ServerVerificatiing = false });
+							}
+						}
+						catch (HttpRequestException e)
+						{
+							await JS.InvokeAsync<object>("alert", e.Message);
+
+							Dispatcher.Dispatch(new WebWalletReCAPTCHAServerAction { ServerVerificatiing = false });
+						}
+					}*/
+		}
+
+		//protected override async Task OnAfterRenderAsync(bool firstRender)
+		//{
+		//	var key = Configuration["network"] + "freelyr";
+		//	if (walletState.Value.freeTokenTimes.HasValue)
+		//	{
+		//		// if it need save
+		//		var oldValue = await localStore.GetItemAsync<string>(key);
+		//		int oldCount;
+		//		if (oldValue == null || (int.TryParse(oldValue, out oldCount) && oldCount < walletState.Value.freeTokenTimes))
+		//		{
+		//			await localStore.SetItemAsync(key, walletState.Value.freeTokenTimes.ToString());
+		//		}
+		//	}
+		//	else
+		//	{
+		//		var oldValue = await localStore.GetItemAsync<string>(key);
+		//		int oldCount;
+		//		if (oldValue != null && int.TryParse(oldValue, out oldCount))
+		//		{
+		//			walletState.Value.freeTokenTimes = oldCount;
+		//		}
+		//		else
+		//		{
+		//			walletState.Value.freeTokenTimes = 0;
+		//		}
+		//	}
+		//}
+
+		private async Task Send(MouseEventArgs e)
+		{
+			if(walletState.Value.wallet.BaseBalance > 1)
+				Dispatcher.Dispatch(new WebWalletSendAction {   });
+			else
+				await JS.InvokeAsync<object>("alert", "Nothing to send.");
+		}
+
+		private async Task SendX(string name)
+		{
+			tokenName = name;
+			if (walletState.Value.wallet.BaseBalance > 1)
+				Dispatcher.Dispatch(new WebWalletSendAction { });
+			else
+				await JS.InvokeAsync<object>("alert", "Nothing to send.");
+		}
+
+		private void SendToken(MouseEventArgs e)
+		{
+			Dispatcher.Dispatch(new WebWalletSendTokenAction { DstAddr = dstAddr, TokenName = tokenName, Amount = amount, wallet = walletState.Value.wallet });
+		}
+
+		private void CancelSend(MouseEventArgs e)
+		{
+			Dispatcher.Dispatch(new WebWalletCancelSendAction ());
+		}
+
+		private void Settings(MouseEventArgs e)
+		{
+			voteAddr = walletState.Value.wallet.VoteFor;
+			Dispatcher.Dispatch(new WebWalletSettingsAction { });
+		}
+
+		private void SaveSettings(MouseEventArgs e)
+        {
+			Dispatcher.Dispatch(new WebWalletSaveSettingsAction { VoteFor = voteAddr });
+        }
+
+		private void CancelSave(MouseEventArgs e)
+		{
+			Dispatcher.Dispatch(new WebWalletCancelSaveSettingsAction { });
+		}
+
+		private void Transactions(MouseEventArgs e)
+		{
+			Dispatcher.Dispatch(new WebWalletTransactionsAction { wallet = walletState.Value.wallet });
+		}
+
+		private void Return(MouseEventArgs e)
+		{
+			Dispatcher.Dispatch(new WebWalletCancelSaveSettingsAction { });
+		}
+
+		private void FreeToken(MouseEventArgs e)
+		{
+			Dispatcher.Dispatch(new WebWalletFreeTokenAction { faucetPvk = Configuration["faucetPvk"] });
+		}
+
+		private void StartDex(MouseEventArgs e)
+		{		
+			Dispatcher.Dispatch(new WebWalletStartDexAction());
+		}
+}

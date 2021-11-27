@@ -13,6 +13,9 @@ using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
 using Blazored.LocalStorage;
+using BlazorStyled;
+using Lyra.Core.API;
+using System;
 
 namespace NebulaMobile
 {
@@ -40,16 +43,19 @@ namespace NebulaMobile
 			// my
 			builder.Services.AddHttpClient();
 			builder.Services.AddBlazoredLocalStorage();
+			builder.Services.AddBlazorStyled();
 			var networkid = builder.Configuration["network"];
 			// use dedicate host to avoid "random" result from api.lyra.live which is dns round-robbined. <-- not fail safe
 			//services.AddTransient<LyraRestClient>(a => LyraRestClient.Create(networkid, Environment.OSVersion.ToString(), "Nebula", "1.0"/*, $"http://nebula.{networkid}.lyra.live:{Neo.Settings.Default.P2P.WebAPI}/api/Node/"*/));
 
 			builder.Services.AddScoped<ILyraAPI>(provider =>
 			{
-				var client = new LyraAggregatedClient(networkid, true, null);
-				var t = Task.Run(async () => { await client.InitAsync(); });
-				Task.WaitAll(t);
-				return client;
+				var lc = LyraRestClient.Create(networkid, Environment.OSVersion.ToString(), "MAUI", "1.0");
+				return lc;
+				//var client = new LyraAggregatedClient(networkid, true, null);
+				//var t = Task.Run(async () => { await client.InitAsync(); });
+				//Task.WaitAll(t);
+				//return client;
 			});
 
 			var currentAssembly = typeof(MauiProgram).Assembly;

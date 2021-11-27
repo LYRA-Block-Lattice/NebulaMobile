@@ -72,24 +72,24 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="..\..\LyraNebula\UserLibrary\Components\DexWallets.razor" Link="Components\DexWallets.razor" />
-	  <None Include="..\..\LyraNebula\UserLibrary\Components\Error.razor" Link="Components\Error.razor" />
-	  <None Include="..\..\LyraNebula\UserLibrary\Components\Pool.razor" Link="Components\Pool.razor" />
-	  <None Include="..\..\LyraNebula\UserLibrary\Components\PoolInfo.razor" Link="Components\PoolInfo.razor" />
-	  <None Include="..\..\LyraNebula\UserLibrary\Components\SwapFullUI.razor" Link="Components\SwapFullUI.razor" />
-	  <None Include="..\..\LyraNebula\UserLibrary\Pages\ReCAPTCHA.razor" Link="Pages\ReCAPTCHA.razor" />
+	  <None Include="Platforms\Android\HTTPClientHandlerCreationService_Android.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <PackageReference Include="AntDesign" Version="0.10.2" />
 	  <PackageReference Include="Blazored.LocalStorage" Version="4.1.5" />
+	  <PackageReference Include="BlazorStyled" Version="3.1.0" />
 	  <PackageReference Include="CoinGeckoAsyncApi" Version="1.5.0" />
 	  <PackageReference Include="Converto" Version="2.1.0" />
 	  <PackageReference Include="Fluxor.Blazor.Web" Version="4.2.1" />
 	  <PackageReference Include="LiteDB" Version="5.0.11" />
 	  <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
 	  <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+	  <PackageReference Include="Microsoft.VisualStudio.Threading" Version="17.0.64" />
+	  <PackageReference Include="MongoDB.Bson" Version="2.14.0" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+	  <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
+	  <PackageReference Include="StreamJsonRpc" Version="2.9.85" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
@@ -108,8 +108,11 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-	  <Folder Include="Data\" />
 	  <Folder Include="Store\WebWalletUseCase\" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <_MauiCompileToAdd Remove="Platforms\Android\HTTPClientHandlerCreationService_Android.cs" />
 	</ItemGroup>
 
 </Project>

@@ -14,12 +14,29 @@
 @inject ILyraAPI lyraClient
 @inject MessageService _message
 
-<table cellspacing="0" cellpadding="0">
+<Styled>
+    
+.swt {
+    margin: 10px;
+    border-collapse: separate;
+}
+
+table.swt td {
+    background-clip: padding-box;
+    
+    color: black;
+    border: 5px solid white;
+    border-radius: 5px;
+}
+
+</Styled>
+
+<table cellspacing="0" cellpadding="0" class="swt">
 
 
     <tr>
         <td>From</td>
-        <td>Balance: @balance1</td>
+        <td>Balance: @($"{balance1:N8}")</td>
     </tr>
     <tr>
         <td><AntDesign.Input TValue="decimal" Placeholder="Enter an amount" @bind-Value="@amount1" OnChange="@updateBtn1" /></td>
@@ -41,7 +58,7 @@
     </tr>
     <tr>
         <td>To</td>
-        <td>Balance: @balance2</td>
+        <td>Balance: @($"{balance2:N8}")</td>
     </tr>
     <tr>
         <td><AntDesign.Input TValue="decimal" Placeholder="Enter an amount" @bind-Value="@amount2" OnChange="@updateBtn2" /></td>
@@ -55,8 +72,8 @@
     </tr>
     @if (haspoolinfo)
     {
-        <tr>
-            <td colspan="2"><Divider /></td>
+        <tr style="height: 10px">
+            <td colspan="2"></td>
         </tr>
         <tr>
             <td>Token Pair</td>
@@ -82,8 +99,12 @@
 
     @if (dispswap)
     {
+        <tr style="height: 10px">
+            <td colspan="2"></td>
+        </tr>
         <tr>
-            <td colspan="2"><Divider /></td>
+            <td>Estimated Price</td>
+            <td>@calprice</td>
         </tr>
         <tr>
             <td>You will sell</td>
@@ -107,9 +128,9 @@
         </tr>
     }
 
-    <tr>
-        <td colspan="2"><Divider /></td>
-    </tr>
+        <tr style="height: 10px">
+            <td colspan="2"></td>
+        </tr>
     <tr>
 
         <td colspan="2">
@@ -156,10 +177,11 @@
     bool dispswap, canswap;
     bool swapping;
 
-    RenderFragment calsell, calget, calimpact, calprofee, calnodfee;
+    RenderFragment calprice, calsell, calget, calimpact, calprofee, calnodfee;
 
     string token0, token1;
     TransactionBlock poollatest;
+    decimal price;
     decimal minrecv;
     decimal lyraprice;
 
@@ -194,6 +216,7 @@
 
             updateBtn1(amount1);
             UpdateBalance();
+            
             swapping = false;
         }
         else
@@ -234,11 +257,18 @@
     {
         if (dispswap && amount1 > 0 && token0 != null)
         {
+            var fromticker = selectedTicker1;
             var swapcal = new SwapCalculator(token0, token1, poollatest,
-                selectedTicker1, amount1, 0);
-            var sell = $"{amount1} {selectedTicker1}";
+                fromticker, amount1, 0);
+            var sell = $"{amount1} {fromticker}";
             calsell =
     @<div>@sell</div>
+    ;
+
+            price = swapcal.Price;
+            var pricestr = $"{Math.Round(1/price, 8)} {selectedTicker2}";
+            calprice =
+    @<div>@pricestr</div>
     ;
 
             minrecv = swapcal.MinimumReceived;
@@ -253,7 +283,7 @@
     ;
 
             var feen = $"{swapcal.PayToAuthorizer} LYR";
-            var feep = $"{swapcal.PayToProvider} {selectedTicker1}";
+            var feep = $"{swapcal.PayToProvider} {fromticker}";
             calnodfee =
     @<div>@feen</div>
     ;
@@ -316,6 +346,8 @@
                     balance2 = blk.Balances[selectedTicker2].ToBalanceDecimal();
                 else
                     balance2 = 0;
+
+            Dispatcher.Dispatch(new WebWalletRefreshBalanceAction { wallet = walletState.Value.wallet });
         }
 
         //InvokeAsync(() => StateHasChanged());
