@@ -54,9 +54,30 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Include="..\..\LyraNebula\UserLibrary\Data\reCAPTCHAVerificationOptions.cs" Link="Data\reCAPTCHAVerificationOptions.cs" />
+	  <Compile Include="..\..\LyraNebula\UserLibrary\Data\reCAPTCHAVerificationResponse.cs" Link="Data\reCAPTCHAVerificationResponse.cs" />
+	  <Compile Include="..\..\LyraNebula\UserLibrary\Data\WalletView.cs" Link="Data\WalletView.cs" />
+	  <Compile Include="..\..\LyraNebula\UserLibrary\Store\WebWalletUseCase\Actions.cs" Link="Store\WebWalletUseCase\Actions.cs" />
+	  <Compile Include="..\..\LyraNebula\UserLibrary\Store\WebWalletUseCase\Feature.cs" Link="Store\WebWalletUseCase\Feature.cs" />
+	  <Compile Include="..\..\LyraNebula\UserLibrary\Store\WebWalletUseCase\Reducers.cs" Link="Store\WebWalletUseCase\Reducers.cs" />
+	  <Compile Include="..\..\LyraNebula\UserLibrary\Store\WebWalletUseCase\WebWalletActionEffect.cs" Link="Store\WebWalletUseCase\WebWalletActionEffect.cs" />
+	  <Compile Include="..\..\LyraNebula\UserLibrary\Store\WebWalletUseCase\WebWalletResultAction.cs" Link="Store\WebWalletUseCase\WebWalletResultAction.cs" />
+	  <Compile Include="..\..\LyraNebula\UserLibrary\Store\WebWalletUseCase\WebWalletState.cs" Link="Store\WebWalletUseCase\WebWalletState.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <EmbeddedResource Include="appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\LyraNebula\UserLibrary\Components\DexWallets.razor" Link="Components\DexWallets.razor" />
+	  <None Include="..\..\LyraNebula\UserLibrary\Components\Error.razor" Link="Components\Error.razor" />
+	  <None Include="..\..\LyraNebula\UserLibrary\Components\Pool.razor" Link="Components\Pool.razor" />
+	  <None Include="..\..\LyraNebula\UserLibrary\Components\PoolInfo.razor" Link="Components\PoolInfo.razor" />
+	  <None Include="..\..\LyraNebula\UserLibrary\Components\SwapFullUI.razor" Link="Components\SwapFullUI.razor" />
+	  <None Include="..\..\LyraNebula\UserLibrary\Pages\ReCAPTCHA.razor" Link="Pages\ReCAPTCHA.razor" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -84,6 +105,11 @@
 	  <Reference Include="lyra.shared">
 	    <HintPath>..\..\LyraNetwork\Core\Lyra.Shared\bin\Debug\net6.0\lyra.shared.dll</HintPath>
 	  </Reference>
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Folder Include="Data\" />
+	  <Folder Include="Store\WebWalletUseCase\" />
 	</ItemGroup>
 
 </Project>
