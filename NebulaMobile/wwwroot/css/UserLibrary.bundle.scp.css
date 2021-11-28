@@ -1,0 +1,116 @@
+/* _content/UserLibrary/Components/Pool.razor.rz.scp.css */
+.swc[b-rp347qdjyt] {
+	display: flex;
+	padding: 3px;
+	background: #D1C4E9;
+	display: inline-block;
+	margin: 0 auto;
+	border-radius: 15px;
+	padding: 5px;
+}
+
+.swt[b-rp347qdjyt] {
+	margin: 10px;
+	border-collapse: separate;
+	background: #D1C4E9;
+	border: 3px;
+}
+
+.round[b-rp347qdjyt] {
+	border-radius: 15px;
+	padding: 5px;
+	background: white;
+}
+
+	.swt td[b-rp347qdjyt] {
+		background-clip: padding-box;
+		color: black;
+		border: 5px solid #D1C4E9;
+		border-radius: 5px;
+		background: #D1C4E9;
+	}
+
+	.swt tr td:nth-child(2)[b-rp347qdjyt] {
+		text-align: right;
+	}
+/* _content/UserLibrary/Components/Swap.razor.rz.scp.css */
+.swc[b-mxo96qvchw] {
+	display: flex;
+	padding: 3px;
+	background: #D1C4E9;
+	display: inline-block;
+	margin: 0 auto;
+	border-radius: 15px;
+	padding: 5px;
+}
+
+.swt[b-mxo96qvchw] {
+	margin: 10px;
+	border-collapse: separate;
+	background: #D1C4E9;
+	border: 3px;
+}
+
+.round[b-mxo96qvchw] {
+	border-radius: 15px;
+	padding: 5px;
+	background: white;
+}
+
+	.swt td[b-mxo96qvchw] {
+		background-clip: padding-box;
+		color: black;
+		border: 5px solid #D1C4E9;
+		border-radius: 5px;
+		background: #D1C4E9;
+	}
+
+	.swt tr td:nth-child(2)[b-mxo96qvchw] {
+		text-align: right;
+	}
+/* _content/UserLibrary/Components/TopBar.razor.rz.scp.css */
+.top-row[b-cvvdiq80ub] {
+	background-color: #f7f7f7;
+	border-bottom: 1px solid #d6d5d5;
+	justify-content: space-between;
+	height: 3.5rem;
+	display: flex;
+	align-items: center;
+}
+
+	.top-row[b-cvvdiq80ub]  a, .top-row .btn-link[b-cvvdiq80ub] {
+		white-space: nowrap;
+		margin-left: 1.5rem;
+	}
+
+	.top-row a:first-child[b-cvvdiq80ub] {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+@media (max-width: 640.98px) {
+	.top-row:not(.auth)[b-cvvdiq80ub] {
+		display: none;
+	}
+
+	.top-row.auth[b-cvvdiq80ub] {
+		justify-content: space-between;
+	}
+
+	.top-row a[b-cvvdiq80ub], .top-row .btn-link[b-cvvdiq80ub] {
+		margin-left: 0;
+	}
+}
+
+@media (min-width: 641px) {
+	.top-row[b-cvvdiq80ub] {
+		position: sticky;
+		top: 0;
+		z-index: 1;
+	}
+
+	.top-row[b-cvvdiq80ub], article[b-cvvdiq80ub] {
+		padding-left: 2rem !important;
+		padding-right: 1.5rem !important;
+	}
+}

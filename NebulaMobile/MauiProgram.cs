@@ -59,7 +59,8 @@ namespace NebulaMobile
 			});
 
 			var currentAssembly = typeof(MauiProgram).Assembly;
-			builder.Services.AddFluxor(options => options.ScanAssemblies(currentAssembly));
+			var userlib = typeof(UserLibrary.Data.WalletView).Assembly;
+			builder.Services.AddFluxor(options => options.ScanAssemblies(currentAssembly, userlib));
 
 			builder.Services.AddAntDesign();
 

@@ -54,22 +54,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Components\TopBar.razor.css" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Include="..\..\LyraNebula\UserLibrary\Data\reCAPTCHAVerificationOptions.cs" Link="Data\reCAPTCHAVerificationOptions.cs" />
-	  <Compile Include="..\..\LyraNebula\UserLibrary\Data\reCAPTCHAVerificationResponse.cs" Link="Data\reCAPTCHAVerificationResponse.cs" />
-	  <Compile Include="..\..\LyraNebula\UserLibrary\Data\WalletView.cs" Link="Data\WalletView.cs" />
-	  <Compile Include="..\..\LyraNebula\UserLibrary\Store\WebWalletUseCase\Actions.cs" Link="Store\WebWalletUseCase\Actions.cs" />
-	  <Compile Include="..\..\LyraNebula\UserLibrary\Store\WebWalletUseCase\Feature.cs" Link="Store\WebWalletUseCase\Feature.cs" />
-	  <Compile Include="..\..\LyraNebula\UserLibrary\Store\WebWalletUseCase\Reducers.cs" Link="Store\WebWalletUseCase\Reducers.cs" />
-	  <Compile Include="..\..\LyraNebula\UserLibrary\Store\WebWalletUseCase\WebWalletActionEffect.cs" Link="Store\WebWalletUseCase\WebWalletActionEffect.cs" />
-	  <Compile Include="..\..\LyraNebula\UserLibrary\Store\WebWalletUseCase\WebWalletResultAction.cs" Link="Store\WebWalletUseCase\WebWalletResultAction.cs" />
-	  <Compile Include="..\..\LyraNebula\UserLibrary\Store\WebWalletUseCase\WebWalletState.cs" Link="Store\WebWalletUseCase\WebWalletState.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <EmbeddedResource Include="appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
@@ -109,18 +93,13 @@
 	  <Reference Include="lyra.shared">
 	    <HintPath>..\..\LyraNetwork\Core\Lyra.Shared\bin\Debug\net6.0\lyra.shared.dll</HintPath>
 	  </Reference>
-	</ItemGroup>
-	
-	<ItemGroup>
-	  <Folder Include="Store\WebWalletUseCase\" />
+	  <Reference Include="UserLibrary">
+	    <HintPath>..\..\LyraNebula\UserLibrary\bin\Debug\net6.0\UserLibrary.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 	
 	<ItemGroup>
 	  <_MauiCompileToAdd Remove="Platforms\Android\HTTPClientHandlerCreationService_Android.cs" />
-	</ItemGroup>
-	
-	<ItemGroup>
-	  <Content Include="Components\TopBar.razor.css" />
 	</ItemGroup>
 
 </Project>
