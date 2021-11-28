@@ -323,7 +323,7 @@ else
         {
 			altDisplay = "************";
 
-			Dispatcher.Dispatch(new WebWalletCreateAction());
+			Dispatcher.Dispatch(new WebWalletCreateAction{name = "tmp", password = "tmp"});
 		}
 
 		private async void RestoreWallet(MouseEventArgs e)
