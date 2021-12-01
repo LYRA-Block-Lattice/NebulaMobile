@@ -1,4 +1,12 @@
 ﻿@page "/"
+@inject NavigationManager Navigation
 
-<h1>Login you wallet</h1>
+@code{
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Navigation.NavigateTo("login");
+    }
+}
+
 

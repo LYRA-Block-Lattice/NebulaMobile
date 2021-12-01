@@ -16,6 +16,9 @@ using Blazored.LocalStorage;
 using BlazorStyled;
 using Lyra.Core.API;
 using System;
+using Blazorise;
+using Blazorise.Bootstrap5;
+using Blazorise.Icons.FontAwesome;
 
 namespace NebulaMobile
 {
@@ -64,7 +67,15 @@ namespace NebulaMobile
 
 			builder.Services.AddAntDesign();
 
-			return builder.Build();
-		}
-	}
+            builder.Services
+				  .AddBlazorise(options =>
+				  {
+					  options.ChangeTextOnKeyPress = true; // optional
+				  })
+				  .AddBootstrap5Providers()
+				  .AddFontAwesomeIcons();
+
+            return builder.Build();
+        }
+    }
 }
