@@ -65,8 +65,6 @@ namespace NebulaMobile
 			var userlib = typeof(UserLibrary.Data.WalletView).Assembly;
 			builder.Services.AddFluxor(options => options.ScanAssemblies(currentAssembly, userlib));
 
-			builder.Services.AddAntDesign();
-
             builder.Services
 				  .AddBlazorise(options =>
 				  {
