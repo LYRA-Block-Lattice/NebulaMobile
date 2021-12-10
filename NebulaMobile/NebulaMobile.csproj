@@ -65,57 +65,27 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Blazored.LocalStorage" Version="4.1.5" />
-	  <PackageReference Include="BlazorStyled" Version="3.1.0" />
-	  <PackageReference Include="CoinGeckoAsyncApi" Version="1.5.0" />
+	  <PackageReference Include="Blazorise.Bootstrap5" Version="0.9.5.2" />
+	  <PackageReference Include="Blazorise.Components" Version="0.9.5.2" />
+	  <PackageReference Include="Blazorise.DataGrid" Version="0.9.5.2" />
+	  <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.5.2" />
+	  <PackageReference Include="Blazorise.Snackbar" Version="0.9.5.2" />
+	  <PackageReference Include="CoinGeckoAsyncApi" Version="1.5.1" />
 	  <PackageReference Include="Converto" Version="2.1.0" />
 	  <PackageReference Include="Fluxor.Blazor.Web" Version="4.2.1" />
-	  <PackageReference Include="LiteDB" Version="5.0.11" />
+	  <PackageReference Include="Lyra.Data" Version="3.0.4.5" />
 	  <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="6.0.0" />
 	  <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
 	  <PackageReference Include="Microsoft.VisualStudio.Threading" Version="17.0.64" />
-	  <PackageReference Include="MongoDB.Bson" Version="2.14.0" />
-	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	  <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
-	  <PackageReference Include="StreamJsonRpc" Version="2.9.85" />
-	  <PackageReference Include="System.Reactive" Version="5.0.0" />
-	  <PackageReference Include="System.Reactive.Linq" Version="5.0.0" />
+	  <PackageReference Include="UserLibrary" Version="1.0.5" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
 		<!-- Required - WinUI does not yet have buildTransitive for everything -->
 	  <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.0.30" />
 	  <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
-	</ItemGroup>
-	
-	<ItemGroup>
-	  <Reference Include="Blazorise">
-	    <HintPath>..\..\Blazorise\Source\Blazorise.Bootstrap5\bin\Debug\net6.0\Blazorise.dll</HintPath>
-	  </Reference>
-	  <Reference Include="Blazorise.Bootstrap5">
-	    <HintPath>..\..\Blazorise\Source\Blazorise.Bootstrap5\bin\Debug\net6.0\Blazorise.Bootstrap5.dll</HintPath>
-	  </Reference>
-	  <Reference Include="Blazorise.Components">
-	    <HintPath>..\..\Blazorise\Source\Extensions\Blazorise.Components\bin\Debug\net6.0\Blazorise.Components.dll</HintPath>
-	  </Reference>
-	  <Reference Include="Blazorise.DataGrid">
-	    <HintPath>..\..\Blazorise\Source\Extensions\Blazorise.DataGrid\bin\Debug\net6.0\Blazorise.DataGrid.dll</HintPath>
-	  </Reference>
-	  <Reference Include="Blazorise.Icons.FontAwesome">
-	    <HintPath>..\..\Blazorise\Source\Extensions\Blazorise.Icons.FontAwesome\bin\Debug\net6.0\Blazorise.Icons.FontAwesome.dll</HintPath>
-	  </Reference>
-	  <Reference Include="Blazorise.Snackbar">
-	    <HintPath>..\..\Blazorise\Source\Extensions\Blazorise.Snackbar\bin\Debug\net6.0\Blazorise.Snackbar.dll</HintPath>
-	  </Reference>
-	  <Reference Include="Lyra.Data">
-	    <HintPath>..\..\LyraNetwork\Core\Lyra.Data\bin\Debug\net6.0\Lyra.Data.dll</HintPath>
-	  </Reference>
-	  <Reference Include="lyra.shared">
-	    <HintPath>..\..\LyraNetwork\Core\Lyra.Shared\bin\Debug\net6.0\lyra.shared.dll</HintPath>
-	  </Reference>
-	  <Reference Include="UserLibrary">
-	    <HintPath>..\..\LyraNebula\UserLibrary\bin\Debug\net6.0\UserLibrary.dll</HintPath>
-	  </Reference>
 	</ItemGroup>
 	
 	<ItemGroup>
