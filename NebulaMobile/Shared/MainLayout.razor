@@ -1,15 +1,30 @@
 ﻿@inherits LayoutComponentBase
+<PageTitle>Lyra Pay</PageTitle>
 
-<div class="page">
-	<div class="sidebar">
-		<NavMenu />
-	</div>
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
 
-	<main>
-		<UserLibrary.Components.TopBar />
+<MudLayout>
+    <MudAppBar Elevation="5" Dense>
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <UserLibrary.Components.TopBarClient />
+    </MudAppBar>
+    <MudDrawer @bind-Open="@_drawerOpen" Elevation="8">
+        <MudDrawerHeader>
+            <MudText Typo="Typo.h6">Lyra Block Lattice</MudText>
+        </MudDrawerHeader>
+        <NavMenu/>
+    </MudDrawer>
+    <MudMainContent Style="height:100%;">
+        @Body
+    </MudMainContent>
+</MudLayout>
+@code {
+    bool _drawerOpen = false;
 
-		<article class="content px-4">
-				@Body
-		</article>
-	</main>
-</div>
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+}

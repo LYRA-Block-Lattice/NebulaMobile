@@ -1,45 +1,18 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-	<div class="container-fluid">
-		<a class="navbar-brand" href="">Lyra Pay</a>
-		<button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-	</div>
-</div>
-
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-	<nav class="flex-column">
-		<div class="nav-item px-3">
-			<NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-				<span class="oi oi-home" aria-hidden="true"></span> Home
-			</NavLink>
-		</div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="swap">
-                <span class="oi oi-loop-circular" aria-hidden="true"></span> Token Swap
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="wallet">
-                <span class="oi oi-key" aria-hidden="true"></span> Lyra Wallet
-            </NavLink>
-        </div>
-@*        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="profit">
-                <span class="oi oi-graph" aria-hidden="true"></span> Profit & Staking
-            </NavLink>
-        </div>*@
-
-	</nav>
-</div>
-
-@code {
-	private bool collapseNavMenu = true;
-
-	private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-	private void ToggleNavMenu()
-	{
-		collapseNavMenu = !collapseNavMenu;
-	}
-}
+﻿<MudNavMenu Class="mudblazor-navmenu">
+    <MudNavLink Href="/">Home</MudNavLink>
+    <MudDivider />
+    <MudNavLink Href="/wallet">Wallet</MudNavLink>
+    <MudNavLink Href="/swap">Swap</MudNavLink>
+    <MudNavLink Href="/dex">DEX</MudNavLink>
+    <MudNavLink Href="/staking">Staking</MudNavLink>
+    <MudNavLink Href="/mint">Create Token</MudNavLink>
+    <MudNavLink Href="/profit">Revenue Center</MudNavLink>
+@*    <MudNavGroup Title="/settings" Expanded="true">
+        <MudNavLink Href="/users">Users</MudNavLink>
+        <MudNavLink Href="/security">Security</MudNavLink>
+    </MudNavGroup>*@
+    <MudDivider />
+    <MudNavLink Href="/settings">Settings</MudNavLink>
+    <MudDivider />
+    <MudNavLink Href="https://lyra.live/">Lyra Site</MudNavLink>
+</MudNavMenu>

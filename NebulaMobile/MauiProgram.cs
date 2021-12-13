@@ -14,10 +14,9 @@ using Microsoft.Extensions.FileProviders;
 using Blazored.LocalStorage;
 using Lyra.Core.API;
 using System;
-using Blazorise;
-using Blazorise.Bootstrap5;
-using Blazorise.Icons.FontAwesome;
 using Lyra.Data.Crypto;
+using MudBlazor.Services;
+using MudBlazor;
 
 namespace NebulaMobile
 {
@@ -64,15 +63,20 @@ namespace NebulaMobile
 			var userlib = typeof(UserLibrary.Data.WalletView).Assembly;
 			builder.Services.AddFluxor(options => options.ScanAssemblies(currentAssembly, userlib));
 
-            builder.Services
-				  .AddBlazorise(options =>
-				  {
-					  options.ChangeTextOnKeyPress = true; // optional
-				  })
-				  .AddBootstrap5Providers()
-				  .AddFontAwesomeIcons();
+			builder.Services.AddMudServices(config =>
+			{
+				config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomCenter;
 
-            return builder.Build();
+				config.SnackbarConfiguration.PreventDuplicates = false;
+				config.SnackbarConfiguration.NewestOnTop = false;
+				config.SnackbarConfiguration.ShowCloseIcon = true;
+				config.SnackbarConfiguration.VisibleStateDuration = 10000;
+				config.SnackbarConfiguration.HideTransitionDuration = 500;
+				config.SnackbarConfiguration.ShowTransitionDuration = 500;
+				config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
+			});
+
+			return builder.Build();
         }
     }
 }
