@@ -65,17 +65,18 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Blazored.LocalStorage" Version="4.1.5" />
-	  <PackageReference Include="CoinGeckoAsyncApi" Version="1.5.2" />
+	  <PackageReference Include="CoinGeckoAsyncApi" Version="1.5.5" />
 	  <PackageReference Include="Converto" Version="2.1.0" />
-	  <PackageReference Include="Fluxor.Blazor.Web" Version="4.2.1" />
-	  <PackageReference Include="Lyra.Data" Version="3.1.0" />
+	  <PackageReference Include="Fluxor.Blazor.Web" Version="5.0.0" />
+	  <PackageReference Include="Lyra.Data" Version="3.1.3.4" />
 	  <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
-	  <PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="6.0.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="6.0.1" />
 	  <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
 	  <PackageReference Include="Microsoft.VisualStudio.Threading" Version="17.0.64" />
-	  <PackageReference Include="MudBlazor" Version="6.0.2" />
+	  <PackageReference Include="MudBlazor" Version="6.0.5" />
 	  <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
-	  <PackageReference Include="UserLibrary" Version="1.1.1.5" />
+	  <PackageReference Include="Radzen.Blazor" Version="3.14.6" />
+	  <PackageReference Include="UserLibrary" Version="1.1.5.1" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
