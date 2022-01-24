@@ -61,6 +61,7 @@
 
 	<ItemGroup>
 	  <None Include="Platforms\Android\HTTPClientHandlerCreationService_Android.cs" />
+	  <None Include="wwwroot\fonts\Inter-roman.var.woff2" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -75,8 +76,8 @@
 	  <PackageReference Include="Microsoft.VisualStudio.Threading" Version="17.0.64" />
 	  <PackageReference Include="MudBlazor" Version="6.0.5" />
 	  <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
-	  <PackageReference Include="Radzen.Blazor" Version="3.14.6" />
-	  <PackageReference Include="UserLibrary" Version="1.1.5.1" />
+	  <PackageReference Include="Radzen.Blazor" Version="3.14.7" />
+	  <PackageReference Include="UserLibrary" Version="1.1.5.2" />
 	</ItemGroup>
 
 	<ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
