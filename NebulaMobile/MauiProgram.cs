@@ -17,6 +17,7 @@ using System;
 using Lyra.Data.Crypto;
 using MudBlazor.Services;
 using MudBlazor;
+using UserLibrary.Data;
 
 namespace NebulaMobile
 {
@@ -46,6 +47,12 @@ namespace NebulaMobile
 			builder.Services.AddHttpClient();
 			builder.Services.AddBlazoredLocalStorage();
 			var networkid = builder.Configuration["network"];
+
+			builder.Services.AddTransient<NebulaConsts>();
+			builder.Services.AddSingleton<PeriodicExecutor>(x =>
+				new PeriodicExecutor(networkid)
+			);
+
 			// use dedicate host to avoid "random" result from api.lyra.live which is dns round-robbined. <-- not fail safe
 			//services.AddTransient<LyraRestClient>(a => LyraRestClient.Create(networkid, Environment.OSVersion.ToString(), "Nebula", "1.0"/*, $"http://nebula.{networkid}.lyra.live:{Neo.Settings.Default.P2P.WebAPI}/api/Node/"*/));
 
