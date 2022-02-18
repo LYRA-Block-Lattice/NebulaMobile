@@ -18,6 +18,7 @@ using Lyra.Data.Crypto;
 using MudBlazor.Services;
 using MudBlazor;
 using UserLibrary.Data;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace NebulaMobile
 {
@@ -32,15 +33,10 @@ namespace NebulaMobile
 				.ConfigureFonts(fonts =>
 				{
 					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-				})
-				.Host
-				.ConfigureAppConfiguration((app, config) =>
-				{
-					var assembly = typeof(App).GetTypeInfo().Assembly;
-					config.AddJsonFile(new EmbeddedFileProvider(assembly), "appsettings.json", optional: false, false);
 				});
 
-			builder.Services.AddBlazorWebView();
+			builder.Configuration.AddJsonFile("appsettings.json");
+            builder.Services.AddBlazorWebView();
 
 			// my
 			Signatures.Switch(true);
@@ -49,22 +45,7 @@ namespace NebulaMobile
 			var networkid = builder.Configuration["network"];
 
 			builder.Services.AddTransient<NebulaConsts>();
-			builder.Services.AddSingleton<PeriodicExecutor>(x =>
-				new PeriodicExecutor(networkid)
-			);
-
-			// use dedicate host to avoid "random" result from api.lyra.live which is dns round-robbined. <-- not fail safe
-			//services.AddTransient<LyraRestClient>(a => LyraRestClient.Create(networkid, Environment.OSVersion.ToString(), "Nebula", "1.0"/*, $"http://nebula.{networkid}.lyra.live:{Neo.Settings.Default.P2P.WebAPI}/api/Node/"*/));
-
-			builder.Services.AddScoped<ILyraAPI>(provider =>
-			{
-				var lc = LyraRestClient.Create(networkid, Environment.OSVersion.ToString(), "MAUI", "1.0");
-				return lc;
-				//var client = new LyraAggregatedClient(networkid, true, null);
-				//var t = Task.Run(async () => { await client.InitAsync(); });
-				//Task.WaitAll(t);
-				//return client;
-			});
+			builder.Services.AddTransient<ILyraAPI>(a => LyraRestClient.Create(networkid, Environment.OSVersion.ToString(), "MAUI", "1.0"/*, $"http://nebula.{networkid}.lyra.live:{Neo.Settings.Default.P2P.WebAPI}/api/Node/"*/));
 
 			var currentAssembly = typeof(MauiProgram).Assembly;
 			var userlib = typeof(UserLibrary.Data.WalletView).Assembly;
@@ -82,6 +63,22 @@ namespace NebulaMobile
 				config.SnackbarConfiguration.ShowTransitionDuration = 500;
 				config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
 			});
+
+			// Register a preconfigure SignalR hub connection.
+			// Note the connection isnt yet started, this will be done as part of the App.razor component
+			// to avoid blocking the application startup in case the connection cannot be established
+			builder.Services.AddSingleton<HubConnection>(sp => {
+				var eventUrl = "https://192.168.3.91:7070/hub";
+				if (networkid == "testnet")
+					eventUrl = "https://dealertestnet.lyra.live/hub";
+				else if (networkid == "mainnet")
+					eventUrl = "https://dealer.lyra.live/hub";
+				var hub = ConnectionFactoryHelper.CreateConnection(new Uri(eventUrl));
+
+				return hub;
+			});
+
+			builder.Services.AddSingleton<ConnectionMethodsWrapper>();
 
 			return builder.Build();
         }
