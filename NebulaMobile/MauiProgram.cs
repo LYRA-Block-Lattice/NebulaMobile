@@ -35,7 +35,9 @@ namespace NebulaMobile
 					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				});
 
-			builder.Configuration.AddJsonFile("appsettings.json");
+
+			builder.Configuration.AddJsonFile(new EmbeddedFileProvider(typeof(App).Assembly), 
+				"appsettings.json", optional: false, false);
             builder.Services.AddBlazorWebView();
 
 			// my
