@@ -7,20 +7,19 @@
 		<RootNamespace>NebulaMobile</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
-		<EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
+		<ImplicitUsings>enable</ImplicitUsings>
 		<EnableDefaultCssItems>false</EnableDefaultCssItems>
 
 		<!-- Display name -->
 		<ApplicationTitle>NebulaMobile</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.NebulaMobile</ApplicationId>
+		<ApplicationId>com.companyname.nebulamobile</ApplicationId>
+		<ApplicationId Condition="$(TargetFramework.Contains('-windows'))">16B54360-B56E-4486-99DB-28F690F7E94C</ApplicationId>
 
 		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
-
-		<!-- Required for C# Hot Reload -->
-		<UseInterpreter Condition="'$(Configuration)' == 'Debug'">True</UseInterpreter>
 
 		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-ios'">14.2</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">14.0</SupportedOSPlatformVersion>
@@ -34,53 +33,34 @@
 		<MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\appiconfg.svg" Color="#512BD4" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\appiconfg.svg" Color="#512BD4" />
+		<MauiSplashScreen Include="Resources\appiconfg.svg" Color="#512BD4" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
-	</ItemGroup>
 
-	<PropertyGroup Condition="$(TargetFramework.Contains('-windows'))">
-		<OutputType>WinExe</OutputType>
-		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<Content Remove="Properties\launchSettings.json" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="Platforms\Android\HTTPClientHandlerCreationService_Android.cs" />
-	  <None Include="wwwroot\fonts\Inter-roman.var.woff2" />
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
 	  <PackageReference Include="CoinGeckoAsyncApi" Version="1.5.5" />
 	  <PackageReference Include="Converto" Version="2.1.0" />
-	  <PackageReference Include="Fluxor.Blazor.Web" Version="5.0.0" />
-	  <PackageReference Include="Lyra.Data" Version="3.2.2.7" />
-	  <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
-	  <PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="6.0.2" />
-	  <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
-	  <PackageReference Include="Microsoft.VisualStudio.Threading" Version="17.1.46" />
-	  <PackageReference Include="MudBlazor" Version="6.0.6" />
+	  <PackageReference Include="Fluxor.Blazor.Web" Version="5.2.0" />
+	  <PackageReference Include="Lyra.Data" Version="3.2.9.5" />
+	  <PackageReference Include="MudBlazor" Version="6.0.9" />
 	  <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
-	  <PackageReference Include="Radzen.Blazor" Version="3.15.4" />
-	  <PackageReference Include="UserLibrary" Version="1.1.7.1" />
+	  <PackageReference Include="Radzen.Blazor" Version="3.18.1" />
+	  <PackageReference Include="UserLibrary" Version="1.1.8.5" />
 	</ItemGroup>
 
-	<ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
-		<!-- Required - WinUI does not yet have buildTransitive for everything -->
-	  <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.0.30" />
-	  <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
-	</ItemGroup>
-	
 	<ItemGroup>
-	  <_MauiCompileToAdd Remove="Platforms\Android\HTTPClientHandlerCreationService_Android.cs" />
+	  <Folder Include="Data\" />
+	  <Folder Include="Pages\" />
 	</ItemGroup>
 
 </Project>
