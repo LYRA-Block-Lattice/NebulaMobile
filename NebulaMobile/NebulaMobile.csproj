@@ -15,7 +15,7 @@
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.nebulamobile</ApplicationId>
-		<ApplicationId Condition="$(TargetFramework.Contains('-windows'))">16B54360-B56E-4486-99DB-28F690F7E94C</ApplicationId>
+		<ApplicationId Condition="$(TargetFramework.Contains('-windows'))">8A501F64-10FC-4789-A0A5-FA5CD1D27555</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -26,8 +26,6 @@
 		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-android'">21.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</TargetPlatformMinVersion>
-		<AndroidManifestApplicationName>Lyra App</AndroidManifestApplicationName>
-		<AndroidManifestApplicationPackageName>live.lyra.app</AndroidManifestApplicationPackageName>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -43,45 +41,32 @@
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
-	</ItemGroup>
 
-	<PropertyGroup Condition="$(TargetFramework.Contains('-windows'))">
-		<OutputType>WinExe</OutputType>
-		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<Content Remove="appsettings.json" />
-	</ItemGroup>
-	<ItemGroup>
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Content Remove="appsettings.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="appsettings.json" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
-	  <PackageReference Include="CoinGeckoAsyncApi" Version="1.6.0" />
-	  <PackageReference Include="Converto" Version="2.1.0" />
+	  <PackageReference Include="BlazorZXingJs" Version="0.5.13" />
 	  <PackageReference Include="Fluxor.Blazor.Web" Version="5.2.0" />
 	  <PackageReference Include="Lyra.Data" Version="3.3.1" />
-	  <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.8" />
-	  <PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="6.0.4" />
-	  <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
-	  <PackageReference Include="Microsoft.VisualStudio.Threading" Version="17.1.46" />
 	  <PackageReference Include="MudBlazor" Version="6.0.9" />
-	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	  <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
 	  <PackageReference Include="Radzen.Blazor" Version="3.18.4" />
 	  <PackageReference Include="UserLibrary" Version="1.1.9.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Data\" />
 	  <Folder Include="Pages\" />
-	</ItemGroup>
-	
-	<ItemGroup>
-	  <EmbeddedResource Include="appsettings.json" />
 	</ItemGroup>
 
 </Project>
