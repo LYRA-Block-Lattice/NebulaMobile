@@ -11,7 +11,7 @@
 		<EnableDefaultCssItems>false</EnableDefaultCssItems>
 
 		<!-- Display name -->
-		<ApplicationTitle>NebulaMobile</ApplicationTitle>
+		<ApplicationTitle>Lyra App</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>live.lyra.app</ApplicationId>
