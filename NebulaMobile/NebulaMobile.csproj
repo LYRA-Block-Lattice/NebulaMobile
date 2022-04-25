@@ -52,9 +52,8 @@
 
 	<ItemGroup>
 		<Content Remove="appsettings.json" />
-		<Content Remove="Properties\launchSettings.json" />
 	</ItemGroup>
-
+	<ItemGroup>
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
@@ -74,12 +73,6 @@
 	  <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
 	  <PackageReference Include="Radzen.Blazor" Version="3.15.4" />
 	  <PackageReference Include="UserLibrary" Version="1.1.7.4" />
-	</ItemGroup>
-
-	<ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
-		<!-- Required - WinUI does not yet have buildTransitive for everything -->
-	  <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.0.30" />
-	  <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

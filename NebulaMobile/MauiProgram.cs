@@ -6,6 +6,7 @@ using Lyra.Data.Crypto;
 using Microsoft.AspNetCore.Components.WebView.Maui;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.FileProviders;
 using MudBlazor;
 using MudBlazor.Services;
 using UserLibrary.Data;
@@ -31,10 +32,11 @@ public static class MauiProgram
 
 		Signatures.Switch(true);
 		builder.Services.AddHttpClient();
-		builder.Services.AddBlazoredLocalStorage();
 
-		builder.Services.AddTransient<NebulaConsts>();
-		builder.Services.AddTransient<ILyraAPI>(a => LyraRestClient.Create(networkid, Environment.OSVersion.ToString(), "MAUI", "1.0"/*, $"http://nebula.{networkid}.lyra.live:{Neo.Settings.Default.P2P.WebAPI}/api/Node/"*/));
+		builder.Services.AddBlazoredLocalStorage();
+		var networkid = builder.Configuration["network"];
+		builder.Services.AddScoped<ILyraAPI>(a => LyraRestClient.Create(networkid, Environment.OSVersion.ToString(), "HotTest", "1.0"));
+		builder.Services.AddScoped<DealerClient>(a => new DealerClient(networkid));
 
 		var currentAssembly = typeof(MauiProgram).Assembly;
 		var userlib = typeof(UserLibrary.Data.WalletView).Assembly;
@@ -57,7 +59,7 @@ public static class MauiProgram
 		// Note the connection isnt yet started, this will be done as part of the App.razor component
 		// to avoid blocking the application startup in case the connection cannot be established
 		builder.Services.AddSingleton<HubConnection>(sp => {
-			var eventUrl = "https://192.168.3.91:7070/hub";
+			var eventUrl = "https://dealer.devnet.lyra.live:7070/hub";
 			if (networkid == "testnet")
 				eventUrl = "https://dealertestnet.lyra.live/hub";
 			else if (networkid == "mainnet")
