@@ -26,6 +26,8 @@
 		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-android'">21.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$(TargetFramework.Contains('-windows'))">10.0.17763.0</TargetPlatformMinVersion>
+		<AndroidManifestApplicationName>Lyra App</AndroidManifestApplicationName>
+		<AndroidManifestApplicationPackageName>live.lyra.app</AndroidManifestApplicationPackageName>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -51,11 +53,11 @@
 	  <PackageReference Include="CoinGeckoAsyncApi" Version="1.5.5" />
 	  <PackageReference Include="Converto" Version="2.1.0" />
 	  <PackageReference Include="Fluxor.Blazor.Web" Version="5.2.0" />
-	  <PackageReference Include="Lyra.Data" Version="3.2.9.5" />
+	  <PackageReference Include="Lyra.Data" Version="3.3.1" />
 	  <PackageReference Include="MudBlazor" Version="6.0.9" />
 	  <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
 	  <PackageReference Include="Radzen.Blazor" Version="3.18.1" />
-	  <PackageReference Include="UserLibrary" Version="1.1.8.5" />
+	  <PackageReference Include="UserLibrary" Version="1.1.9.1" />
 	</ItemGroup>
 
 	<ItemGroup>
