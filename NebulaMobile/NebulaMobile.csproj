@@ -70,7 +70,7 @@
 	  <PackageReference Include="MudBlazor" Version="6.0.9" />
 	  <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
 	  <PackageReference Include="Radzen.Blazor" Version="3.18.4" />
-	  <PackageReference Include="UserLibrary" Version="1.2.0.3" />
+	  <PackageReference Include="UserLibrary" Version="1.2.0.4" />
 	</ItemGroup>
 
 	<ItemGroup>
