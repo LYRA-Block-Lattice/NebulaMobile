@@ -33,9 +33,9 @@
 
 	<PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
 		<AndroidKeyStore>True</AndroidKeyStore>
-		<AndroidSigningKeyStore>myapp.keystore</AndroidSigningKeyStore>
+		<AndroidSigningKeyStore>../../lyraapp.keystore</AndroidSigningKeyStore>
 		<AndroidSigningKeyAlias>key</AndroidSigningKeyAlias>
-		<AndroidSigningKeyPass></AndroidSigningKeyPass>
+		<AndroidSigningKeyPass>4636E3884872</AndroidSigningKeyPass>
 		<AndroidSigningStorePass></AndroidSigningStorePass>
 	</PropertyGroup>	
 
@@ -73,7 +73,7 @@
 	  <PackageReference Include="MudBlazor" Version="6.0.9" />
 	  <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
 	  <PackageReference Include="Radzen.Blazor" Version="3.18.4" />
-	  <PackageReference Include="UserLibrary" Version="1.2.0.8" />
+	  <PackageReference Include="UserLibrary" Version="1.2.0.9" />
 	</ItemGroup>
 
 	<ItemGroup>
