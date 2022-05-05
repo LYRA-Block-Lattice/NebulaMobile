@@ -36,7 +36,7 @@
 		<AndroidSigningKeyStore>../../lyraapp.keystore</AndroidSigningKeyStore>
 		<AndroidSigningKeyAlias>key</AndroidSigningKeyAlias>
 		<AndroidSigningKeyPass>4636E3884872</AndroidSigningKeyPass>
-		<AndroidSigningStorePass></AndroidSigningStorePass>
+		<AndroidSigningStorePass>4636E3884872</AndroidSigningStorePass>
 	</PropertyGroup>	
 
 	<ItemGroup>
@@ -73,11 +73,12 @@
 	  <PackageReference Include="MudBlazor" Version="6.0.9" />
 	  <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
 	  <PackageReference Include="Radzen.Blazor" Version="3.18.4" />
-	  <PackageReference Include="UserLibrary" Version="1.2.0.9" />
+	  <PackageReference Include="UserLibrary" Version="1.2.1.8" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Folder Include="Pages\" />
+	  <Folder Include="Properties\PublishProfiles\" />
 	</ItemGroup>
 
 </Project>
