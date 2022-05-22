@@ -27,7 +27,9 @@ public static class MauiProgram
         builder.Configuration.AddJsonFile(new EmbeddedFileProvider(typeof(App).Assembly),
                 "appsettings.json", optional: false, false);
         builder.Services.AddMauiBlazorWebView();
-
+#if DEBUG
+        builder.Services.AddBlazorWebViewDeveloperTools();
+#endif
         #region lyra init
         Signatures.Switch(true);
 

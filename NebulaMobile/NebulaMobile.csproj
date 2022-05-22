@@ -9,6 +9,7 @@
 		<RootNamespace>NebulaMobile</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
+		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<EnableDefaultCssItems>false</EnableDefaultCssItems>
 
@@ -73,12 +74,27 @@
 	  <PackageReference Include="MudBlazor" Version="6.0.9" />
 	  <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
 	  <PackageReference Include="Radzen.Blazor" Version="3.18.4" />
-	  <PackageReference Include="UserLibrary" Version="1.2.2.6" />
+	  <PackageReference Include="UserLibrary" Version="1.2.2.8" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Folder Include="Pages\" />
 	  <Folder Include="Properties\PublishProfiles\" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-android')) != true">
+		<Compile Remove="**\**\*.Android.cs" />
+		<None Include="**\**\*.Android.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-ios')) != true AND $(TargetFramework.StartsWith('net6.0-maccatalyst')) != true">
+		<Compile Remove="**\**\*.iOS.cs" />
+		<None Include="**\**\*.iOS.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$(TargetFramework.Contains('-windows')) != true ">
+		<Compile Remove="**\*.Windows.cs" />
+		<None Include="**\*.Windows.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
 	</ItemGroup>
 
 </Project>
