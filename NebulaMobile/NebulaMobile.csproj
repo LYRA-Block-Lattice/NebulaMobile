@@ -70,11 +70,11 @@
 	  <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
 	  <PackageReference Include="BlazorZXingJs" Version="0.5.13" />
 	  <PackageReference Include="Fluxor.Blazor.Web" Version="5.2.0" />
-	  <PackageReference Include="Lyra.Data" Version="3.3.5.3" />
+	  <PackageReference Include="Lyra.Data" Version="3.3.6.6" />
 	  <PackageReference Include="MudBlazor" Version="6.0.9" />
 	  <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
 	  <PackageReference Include="Radzen.Blazor" Version="3.18.4" />
-	  <PackageReference Include="UserLibrary" Version="1.2.2.8" />
+	  <PackageReference Include="UserLibrary" Version="1.2.3.4" />
 	</ItemGroup>
 
 	<ItemGroup>
