@@ -38,6 +38,19 @@
 		<AndroidSigningKeyAlias>key</AndroidSigningKeyAlias>
 		<AndroidSigningKeyPass>4636E3884872</AndroidSigningKeyPass>
 		<AndroidSigningStorePass>4636E3884872</AndroidSigningStorePass>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-android|AnyCPU'">
+	  <RunAOTCompilation>False</RunAOTCompilation>
+	  <Optimize>True</Optimize>
+	  <PublishTrimmed>False</PublishTrimmed>
+	  <AndroidKeyStore>True</AndroidKeyStore>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-android|AnyCPU'">
+	  <DebugSymbols>True</DebugSymbols>
+	  <RunAOTCompilation>False</RunAOTCompilation>
+	  <PublishTrimmed>False</PublishTrimmed>
 	</PropertyGroup>	
 
 	<ItemGroup>
@@ -74,7 +87,7 @@
 	  <PackageReference Include="MudBlazor" Version="6.0.10" />
 	  <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
 	  <PackageReference Include="Radzen.Blazor" Version="3.18.12" />
-	  <PackageReference Include="UserLibrary" Version="1.2.3.6" />
+	  <PackageReference Include="UserLibrary" Version="1.2.4.4" />
 	</ItemGroup>
 
 	<ItemGroup>
