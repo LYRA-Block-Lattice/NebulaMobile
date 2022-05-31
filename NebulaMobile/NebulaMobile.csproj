@@ -84,10 +84,11 @@
 	  <PackageReference Include="BlazorZXingJs" Version="0.5.13" />
 	  <PackageReference Include="Fluxor.Blazor.Web" Version="5.4.0" />
 	  <PackageReference Include="Lyra.Data" Version="3.3.6.6" />
+	  <PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.5" />
 	  <PackageReference Include="MudBlazor" Version="6.0.10" />
 	  <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
 	  <PackageReference Include="Radzen.Blazor" Version="3.18.12" />
-	  <PackageReference Include="UserLibrary" Version="1.2.4.4" />
+	  <PackageReference Include="UserLibrary" Version="1.2.4.5" />
 	</ItemGroup>
 
 	<ItemGroup>

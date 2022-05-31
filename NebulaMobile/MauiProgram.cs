@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.WebView.Maui;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Localization;
 using MudBlazor.Services;
 using UserLibrary.Data;
 
@@ -32,6 +33,8 @@ public static class MauiProgram
 #endif
         #region lyra init
         Signatures.Switch(true);
+
+        builder.Services.AddLocalization();
 
         builder.Services.AddBlazoredLocalStorage();
         var networkid = builder.Configuration["network"];
