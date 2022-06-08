@@ -34,7 +34,10 @@ public static class MauiProgram
         #region lyra init
         Signatures.Switch(true);
 
-        builder.Services.AddLocalization();
+        builder.Services.AddLocalization(options =>
+        {
+            options.ResourcesPath = "Resources";
+        });
 
         builder.Services.AddBlazoredLocalStorage();
         var networkid = builder.Configuration["network"];
@@ -59,21 +62,6 @@ public static class MauiProgram
         });
 
         builder.Services.AddTransient<NebulaConsts>();
-
-        // Register a preconfigure SignalR hub connection.
-        // Note the connection isnt yet started, this will be done as part of the App.razor component
-        //// to avoid blocking the application startup in case the connection cannot be established
-        //builder.Services.AddSingleton<HubConnection>(sp => {
-        //    var eventUrl = "https://dealer.devnet.lyra.live:7070/hub";
-        //    if (networkid == "testnet")
-        //        eventUrl = "https://dealertestnet.lyra.live/hub";
-        //    else if (networkid == "mainnet")
-        //        eventUrl = "https://dealer.lyra.live/hub";
-        //    var hub = ConnectionFactoryHelper.CreateConnection(new Uri(eventUrl));
-
-        //    return hub;
-        //});
-
         builder.Services.AddSingleton<DealerConnMgr>();
         #endregion
 

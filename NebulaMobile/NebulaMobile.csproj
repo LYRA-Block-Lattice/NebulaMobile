@@ -88,7 +88,7 @@
 	  <PackageReference Include="MudBlazor" Version="6.0.10" />
 	  <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
 	  <PackageReference Include="Radzen.Blazor" Version="3.18.12" />
-	  <PackageReference Include="UserLibrary" Version="1.2.4.5" />
+	  <PackageReference Include="UserLibrary" Version="1.2.4.6" />
 	</ItemGroup>
 
 	<ItemGroup>
