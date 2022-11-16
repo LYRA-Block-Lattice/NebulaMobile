@@ -32,6 +32,8 @@ public static class MauiProgram
         builder.Services.AddBlazorWebViewDeveloperTools();
 #endif
         #region lyra init
+        builder.Services.AddHttpClient();
+
         Signatures.Switch(true);
 
         builder.Services.AddLocalization(options =>
